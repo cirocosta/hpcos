@@ -1,49 +1,36 @@
 #include <iomanip>
 #include <iostream>
-#include <gmp.h>
+#include <math.h>
 #include <gmpxx.h>
-#include <pthread.h>
 
 using std::cout;
 using std::endl;
 
-void* func(void*)
+double factorial(int n)
 {
-    long prec = 1000;
-    mpf_set_default_prec(prec);
+    if (!n)
+        return 1;
 
-    mpf_class a(1);
-    mpf_class b(mpf_class(1)/sqrt(mpf_class(2)));
-    mpf_class t(mpf_class(1)/mpf_class(4));
-    mpf_class p(1);
-    mpf_class x, y, pi;
+    double res = n;
 
-    while (a-b > mpf_class(1e-100)) {
-        x = (a+b)/2;
-        y = sqrt(a*b);
-        t = t - p*(a-x)*(a-x);
-        a = x;
-        b = y;
-        p *= 2;
-    }
+    while (--n)
+        res *= n;
 
-    pi = (a+b)*(a+b)/(mpf_class(4)*t);
-
-    cout << std::setprecision(80) << pi << endl;
-
-    pthread_exit(NULL);
+    return res;
 }
 
 int main() {
-    pthread_t t1;
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+    long double result = 0.0;
+    int x = 1;
 
-    pthread_create(&t1, NULL, &func, NULL);
-    pthread_join(t1, NULL);
+    for (int i = 0; i < 10; i++) {
+        if (i%2)
+            result -= (pow(x, 2*i))/(factorial(2*i));
+        else
+            result += (pow(x, 2*i))/(factorial(2*i));
+    }
 
-    cout << "FINISHED" << endl;
+    cout << std::setprecision(100) << result << endl;
 
-    pthread_exit(NULL);
+    return 0;
 }
