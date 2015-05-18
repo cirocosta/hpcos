@@ -3,15 +3,20 @@
 #include <math.h>
 #include <gmpxx.h>
 
+//TODO introduce gmp
+//TODO 'usage' print and settings helper
+//TODO get cpu cores
+//TODO implement butterfly barrier as well as
+//     other types
+
 using std::cout;
 using std::endl;
 
 double factorial(int n)
 {
+    double res = n;
     if (!n)
         return 1;
-
-    double res = n;
 
     while (--n)
         res *= n;

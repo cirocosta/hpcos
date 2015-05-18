@@ -4,7 +4,7 @@
 
 Taking advantage of pthreads (for concurrency) and GMP (for precision) this lib aims to provide a high speed and very precise calculation of `cos(x)`.
 
-##
+## Usage
 
 ```sh
 Usage:
@@ -51,12 +51,35 @@ Stop criteria:
 - error < f
 - when a thread calculates a term less than a M given to the program
 
+### Method
 
-### ok, but from where the results came from?
+Taylor series:
+
+$$
+\cos{x} = \sum\frac{(-1)^n}{(2n)!}x^{2n}
+$$
+
+
+### Comparison and verifying if right
 
 Firstly it relies on calculating a result for a lower precision and then seeing if it is contained in a solution for a higher precision. 
 
 After that, cross-comparison with [mpmath library](http://mpmath.org/) for Python (you can check the test cases inside `tests/`).
+
+### Times
+
+//TODO
+
+Hardware:
+- machine 1
+  - Intel® Core™ i5-460M Processor (3M Cache, 2.53 GHz, 2 cores) 1st gen
+  - 3072 GB Ram
+  - HDD
+
+- machine 2
+  - Intel® Core™ i5-4210U Processor (3M Cache, 1.7 Ghz, 2 cores) 4th gen
+  - 8192 GB Ram
+  - SSD
 
 ## Hacking
 
@@ -71,3 +94,4 @@ The folder structure ir pretty clear, but in case you're not familiar:
 GPLv3
 
 See `./LICENSE` file.
+
