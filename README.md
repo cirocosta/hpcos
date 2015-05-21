@@ -8,13 +8,13 @@ Taking advantage of pthreads (for concurrency) and GMP (for precision) this lib 
 
 ```sh
 Usage:
-        $ ./hpcos i (f|m) p x d?
+        $ ./hpcos t (f|m) p x d?
 
 Params:
 t:      Number of threads to be used. If 0, uses
         t = #cores.
 
-f|m:    Method for checking the precision.  
+f|m:    Method for checking the precision.
 
 p:      Precision. If in 'f' mode, for a value of
         110, stops when delta < 10exp(-110). If
@@ -26,13 +26,20 @@ x:      Value to be calculated (radians).
 d:      Debug mode (optional).
 ```
 
+### `f` mode
+
+> stops when the absolute difference between two consecutive values is less than a precision `p` specified.
+
+### `m` mode
+
+> stops when the absolute contribution of a term from a thread is less than `10^(-p)`
+
 ## Install
 
 Basic:
 
 ```sh
-$ mkdir build
-$ cd build
+$ mkdir build && cd build
 $ cmake ..
 $ make
 ```
@@ -40,16 +47,19 @@ $ make
 Tests included:
 
 ```sh
-$ mkdir build
-$ cd build
+$ mkdir build && cd build
 $ cmake -Dtest=ON ..
 $ make
 $ make test
 ```
 
-Stop criteria: 
-- error < f
-- when a thread calculates a term less than a M given to the program
+ps.: If you wish to debug and etc i recommend switching to clang++ when compiling. To do so:
+
+```sh
+export CXX=/usr/bin/clang++
+```
+
+before running `cmake -Dtest=ON ..`.
 
 ### Method
 
@@ -62,7 +72,7 @@ $$
 
 ### Comparison and verifying if right
 
-Firstly it relies on calculating a result for a lower precision and then seeing if it is contained in a solution for a higher precision. 
+Firstly it relies on calculating a result for a lower precision and then seeing if it is contained in a solution for a higher precision.
 
 After that, cross-comparison with [mpmath library](http://mpmath.org/) for Python (you can check the test cases inside `tests/`).
 
@@ -93,5 +103,5 @@ The folder structure ir pretty clear, but in case you're not familiar:
 
 GPLv3
 
-See `./LICENSE` file.
+See `LICENSE` file.
 

@@ -1,13 +1,18 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+// TODO convert this to the c++ threads API. Also
+// check what might be the disadvantages of using
+// it compared to the C api.
+//    There are any changes that sould be done
+//    regarding the Cmake compilation?
+
 int num_threads = 4;
 int count = 0;
 
 sem_t count_mutex;
 sem_t turnstile1;
 sem_t turnstile2;
-
 
 /**
  * Two-phase reusable barrier

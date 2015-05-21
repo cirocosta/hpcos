@@ -5,6 +5,10 @@
 #include <math.h>
 #include <gmp.h>
 
+#include "input.h"
+
+using namespace hpcos;
+
 //TODO 'usage' print and settings helper
 
 //TODO get cpu cores
@@ -39,7 +43,14 @@ void compute(mpf_t result, int n, mpf_t x)
   mpf_clear(fact2n);
 }
 
-int main() {
+int main(const int argc, const char** argv) {
+  Input input (argc, argv);
+
+
+  std::cout << "output:" << endl
+            << input << std::endl;
+
+
   mpf_set_default_prec(1000);
   mpf_t result, x;
 
