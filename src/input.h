@@ -47,6 +47,7 @@ namespace hpcos {
   private:
     static void print_usage();
     static int parse_int(const char* c);
+    static unsigned parse_ul(const char* c);
     static mpf_class parse_mpf(const char* n);
 
     void parse(const int& argc, const char** argv);
