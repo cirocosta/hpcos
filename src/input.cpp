@@ -29,6 +29,19 @@ void Input::print_usage()
        << endl;
 }
 
+unsigned Input::parse_ul(const char* c)
+{
+  int ul;
+
+  try {
+    ul = std::stoul(c);
+  } catch (std::exception const &e) {
+    cerr << "InputError: " << e.what() << endl;
+  }
+
+  return ul;
+}
+
 int Input::parse_int(const char* c)
 {
   int i;
@@ -56,19 +69,6 @@ mpf_class Input::parse_mpf(const char* number)
   return n;
 }
 
-float Input::parse_float(const char* f)
-{
-  float i;
-  try {
-    i = std::stof(f);
-  } catch (std::exception const &e) {
-    cerr << "InputError: " << e.what() << endl;
-  }
-
-  return i;
-}
-
-
 void Input::parse(const int &argc, const char** argv)
 {
   if (argc < 5) {
@@ -78,7 +78,7 @@ void Input::parse(const int &argc, const char** argv)
     std::exit(1);
   }
 
-  m_threads = parse_int(argv[1]);
+  m_threads = parse_ul(argv[1]);
   if (!m_threads) {
     unsigned concurrentThreads = std::thread::hardware_concurrency();
 
@@ -90,11 +90,6 @@ void Input::parse(const int &argc, const char** argv)
     }
 
     m_threads = concurrentThreads;
-  }
-
-  if (m_threads < 0) {
-    cerr << "Number of threads must be bigger than 0." << endl;
-    std::exit(1);
   }
 
   // mode
@@ -116,7 +111,7 @@ void Input::parse(const int &argc, const char** argv)
   m_precision  = 1/m_precision;
 
   // x
-  m_x = parse_float(argv[4]);
+  m_x = parse_mpf(argv[4]);
 
   // debug
   if (argc > 5 && *argv[5] == 'd')

@@ -20,7 +20,7 @@ namespace hpcos {
   class Input
   {
   private:
-    int m_threads;
+    unsigned m_threads;
     char m_mode;
     mpf_class m_precision;
     mpf_class m_x;
@@ -29,7 +29,7 @@ namespace hpcos {
     Input (const int& argc, const char** argv);
 
     inline mpf_class getPrecision() const { return m_precision; }
-    inline int getThreads() const { return m_threads; }
+    inline unsigned getThreads() const { return m_threads; }
     inline char getMode() const { return m_mode; }
     inline mpf_class getX() const { return m_x; }
     inline float getDebug() const { return m_debug; }
@@ -47,6 +47,7 @@ namespace hpcos {
   private:
     static void print_usage();
     static int parse_int(const char* c);
+    static unsigned parse_ul(const char* c);
     static mpf_class parse_mpf(const char* n);
 
     void parse(const int& argc, const char** argv);
