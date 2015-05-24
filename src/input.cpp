@@ -6,12 +6,8 @@ Input::Input(const int& argc, const char** argv)
   : m_debug(false)
 {
   m_precision.set_prec(100000);
+  m_x.set_prec(100000);
   parse(argc, argv);
-}
-
-Input::~Input()
-{
-  /* mpf_clear(*m_precision); */
 }
 
 void Input::print_usage()
@@ -43,6 +39,21 @@ int Input::parse_int(const char* c)
   }
 
   return i;
+}
+
+mpf_class Input::parse_mpf(const char* number)
+{
+  mpf_class n;
+
+  try {
+    n.set_str(number, 10);
+  } catch (std::invalid_argument e) {
+    std::cerr << "The string supplied for 'x' is not valid" << std::endl
+              << "Exception raised:" << std::endl
+              << e.what() << std::endl;
+  }
+
+  return n;
 }
 
 float Input::parse_float(const char* f)
