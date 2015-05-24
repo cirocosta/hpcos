@@ -42,3 +42,25 @@ namespace hpcos {
 } // ns
 
 
+
+/* void compute(mpf_t result, int n, mpf_t x) */
+/* { */
+/*   mpf_t fact2n, lres; */
+
+/*   mpf_init_set_ui(fact2n, 1); */
+/*   mpf_init_set_ui(lres, 0); */
+
+/*   for (int i = 2; i <= 2*n; i++) */
+/*     mpf_mul_ui(fact2n, fact2n, i); */
+
+/*   mpf_pow_ui(lres, x, 2*n); */
+/*   mpf_div(lres, lres, fact2n); */
+
+/*   if (n%2) */
+/*     mpf_sub(result, result, lres); */
+/*   else */
+/*     mpf_add(result, result, lres); */
+
+/*   mpf_clear(lres); */
+/*   mpf_clear(fact2n); */
+/* } */

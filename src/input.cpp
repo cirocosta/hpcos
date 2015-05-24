@@ -56,19 +56,6 @@ mpf_class Input::parse_mpf(const char* number)
   return n;
 }
 
-float Input::parse_float(const char* f)
-{
-  float i;
-  try {
-    i = std::stof(f);
-  } catch (std::exception const &e) {
-    cerr << "InputError: " << e.what() << endl;
-  }
-
-  return i;
-}
-
-
 void Input::parse(const int &argc, const char** argv)
 {
   if (argc < 5) {
@@ -116,7 +103,7 @@ void Input::parse(const int &argc, const char** argv)
   m_precision  = 1/m_precision;
 
   // x
-  m_x = parse_float(argv[4]);
+  m_x = parse_mpf(argv[4]);
 
   // debug
   if (argc > 5 && *argv[5] == 'd')

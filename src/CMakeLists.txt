@@ -2,10 +2,11 @@ ADD_LIBRARY(calculator calculator.cpp)
 ADD_LIBRARY(input input.cpp)
 
 ADD_EXECUTABLE(main main.cpp)
+
 TARGET_LINK_LIBRARIES(main
-    calculator
-    input
     ${CMAKE_THREAD_LIBS_INIT}
     ${GMPXX_LIBRARIES}
     ${GMP_LIBRARIES}
+    calculator
+    input
 )

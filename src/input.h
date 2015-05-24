@@ -29,7 +29,7 @@ namespace hpcos {
     Input (const int& argc, const char** argv);
 
     inline mpf_class getPrecision() const { return m_precision; }
-    inline int getThreads() const { return m_threads; }
+    inline unsigned getThreads() const { return m_threads; }
     inline char getMode() const { return m_mode; }
     inline mpf_class getX() const { return m_x; }
     inline float getDebug() const { return m_debug; }

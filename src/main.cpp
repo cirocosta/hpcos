@@ -1,62 +1,26 @@
-#include "input.h"
-#include "calculator.h"
+#include <thread>
+#include <cstdio>
+#include <vector>
+#include <algorithm>
 
-//TODO 'usage' print and settings helper
+void busy_func(unsigned thread_id)
+{
+  printf("T%d came!\n", thread_id);
+}
 
-//TODO get cpu cores
+int main() {
+  /* utils::Barrier barrier {}; */
 
-//TODO implement butterfly barrier as well as
-//     other types to compare
+  std::vector<std::thread> threads;
 
-//TODO learn how to measure execution time of
-//     different parts of out code with a great
-//     precision.
+  for (int i = 0; i < 10; i++)
+    threads.push_back(std::thread(busy_func, i));
 
+  std::for_each(threads.begin(), threads.end(), [](std::thread &t) {
+    t.join();
+  });
 
-/* void compute(mpf_t result, int n, mpf_t x) */
-/* { */
-/*   mpf_t fact2n, lres; */
+  printf("Exiting main\n");
 
-/*   mpf_init_set_ui(fact2n, 1); */
-/*   mpf_init_set_ui(lres, 0); */
-
-/*   for (int i = 2; i <= 2*n; i++) */
-/*     mpf_mul_ui(fact2n, fact2n, i); */
-
-/*   mpf_pow_ui(lres, x, 2*n); */
-/*   mpf_div(lres, lres, fact2n); */
-
-/*   if (n%2) */
-/*     mpf_sub(result, result, lres); */
-/*   else */
-/*     mpf_add(result, result, lres); */
-
-/*   mpf_clear(lres); */
-/*   mpf_clear(fact2n); */
-/* } */
-
-int main(const int argc, const char** argv) {
-  mpf_set_default_prec(1000);
-  hpcos::Input input (argc, argv);
-  hpcos::Calculator calculator;
-
-  std::cout << "-- HpCos -- Parameters:" << std::endl
-            << input << std::endl;
-
-  calculator.calculate(input);
-
-  /* mpf_t result, x; */
-
-  /* mpf_init_set_ui(result, 0); */
-  /* mpf_init_set_ui(x, 1); */
-
-  /* for (int i = 0; i < 1000; i++) */
-  /*   compute(result, i, x); */
-
-  /* mpf_out_str(stdout, 10, 0, result); */
-
-  /* mpf_clear(result); */
-  /* mpf_clear(x); */
-
-  pthread_exit(NULL);
+  return 0;
 }
