@@ -10,6 +10,18 @@ Input::Input(const int& argc, const char** argv)
   parse(argc, argv);
 }
 
+Input::Input() : m_debug(false)
+{
+}
+
+void Input::parse_input(const int& argc, const char** argv)
+{
+  m_precision.set_prec(100000);
+  m_x.set_prec(100000);
+
+  parse(argc, argv);
+}
+
 void Input::print_usage()
 {
   cout << "Usage:" << endl
@@ -37,6 +49,7 @@ unsigned Input::parse_ul(const char* c)
     ul = std::stoul(c);
   } catch (std::exception const &e) {
     cerr << "InputError: " << e.what() << endl;
+    exit(1);
   }
 
   return ul;
@@ -44,11 +57,13 @@ unsigned Input::parse_ul(const char* c)
 
 int Input::parse_int(const char* c)
 {
-  int i;
+  int i = -1;
+
   try {
     i = std::stoi(c);
   } catch (std::exception const &e) {
     cerr << "InputError: " << e.what() << endl;
+    exit(1);
   }
 
   return i;
@@ -61,9 +76,11 @@ mpf_class Input::parse_mpf(const char* number)
   try {
     n.set_str(number, 10);
   } catch (std::invalid_argument e) {
-    std::cerr << "The string supplied for 'x' is not valid" << std::endl
+    std::cerr << "InputError:" << std::endl
+              << "The string supplied for 'x' is not valid" << std::endl
               << "Exception raised:" << std::endl
               << e.what() << std::endl;
+    exit(1);
   }
 
   return n;
@@ -71,6 +88,9 @@ mpf_class Input::parse_mpf(const char* number)
 
 void Input::parse(const int &argc, const char** argv)
 {
+  print_usage();
+  cout << argv << endl;
+
   if (argc < 5) {
     print_usage();
     std::cerr << "Minimum number of arguments not provided."

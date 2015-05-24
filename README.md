@@ -61,13 +61,8 @@ export CXX=/usr/bin/clang++
 
 before running `cmake -Dtest=ON ..`.
 
-### Method
-
-Taylor series:
-
-$$
-\cos{x} = \sum\frac{(-1)^n}{(2n)!}x^{2n}
-$$
+For debug builds don't forge to add `-DCMAKE_BUILD_TYPE=Debug`.
+Realease builds with `DCMAKE_BUILD_TYPE=Release`.
 
 
 ### Comparison and verifying if right

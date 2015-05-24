@@ -27,6 +27,9 @@ namespace hpcos {
     bool m_debug;
   public:
     Input (const int& argc, const char** argv);
+    Input ();
+
+    void parse_input(const int& argc, const char** argv);
 
     inline mpf_class getPrecision() const { return m_precision; }
     inline unsigned getThreads() const { return m_threads; }

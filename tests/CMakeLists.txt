@@ -1,9 +1,18 @@
-add_executable(runUnitTests test_calculator.cpp)
+add_executable(inputTest test_input.cpp)
+add_executable(calculatorTest test_calculator.cpp)
 
-# linking gtest_main as we're not providing a
-# main
-target_link_libraries(runUnitTests gtest gtest_main)
-target_link_libraries(runUnitTests calculatorlib)
+target_link_libraries(inputTest
+  ${GMPXX_LIBRARIES}
+  ${GMP_LIBRARIES}
+  gtest
+  gtest_main
+  input
+)
 
+target_link_libraries(calculatorTest
+  gtest
+  gtest_main
+)
 
-add_test(NAME calculator COMMAND runUnitTests)
+add_test(NAME calculator COMMAND calculatorTest)
+add_test(NAME input COMMAND inputTest)
