@@ -3,10 +3,11 @@
 
 #include <gmp.h>
 #include <gmpxx.h>
+
 #include <iostream>
-#include <cstdlib>
 #include <string>
 #include <thread>
+
 
 namespace hpcos {
 
@@ -15,16 +16,15 @@ namespace hpcos {
   using std::endl;
 
   /**
-   * Handles input
+   * Handles input of the form:
+   * $ ./main threads sv x
    */
   class Input
   {
   private:
     unsigned m_threads;
-    char m_mode;
     mpf_class m_precision;
     mpf_class m_x;
-    bool m_debug;
   public:
     Input (const int& argc, const char** argv);
     Input ();
@@ -33,17 +33,13 @@ namespace hpcos {
 
     inline mpf_class getPrecision() const { return m_precision; }
     inline unsigned getThreads() const { return m_threads; }
-    inline char getMode() const { return m_mode; }
     inline mpf_class getX() const { return m_x; }
-    inline float getDebug() const { return m_debug; }
 
     friend std::ostream& operator<<(std::ostream& os, const Input& in)
     {
       os << "threads: " << in.m_threads << endl
-         << "mode: " << in.m_mode << endl
          << "precision: " << in.m_precision << endl
-         << "x: " << in.m_x << endl
-         << "debug: " << in.m_debug;
+         << "x: " << in.m_x << endl;
 
       return os;
     }

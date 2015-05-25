@@ -14,13 +14,12 @@ protected:
 protected:
   InputTest()
   {
-    const int argcF = 5;
-    const int argcM = 5;
+    const int argcF = 4;
+    const int argcM = 4;
 
     const char* cliF[] = {
       "./src/main",
       "4",
-      "f",
       "110",
       "3.1415926553308963775634765625",
     };
@@ -28,7 +27,6 @@ protected:
     const char* cliM[] = {
       "./src/main",
       "4",
-      "m",
       "110",
       "3.1415926553308963775634765625",
     };
@@ -48,10 +46,6 @@ TEST_F(InputTest, Threads) {
   EXPECT_EQ(4, inputM.getThreads());
 }
 
-TEST_F(InputTest, Mode) {
-  EXPECT_EQ('f', inputF.getMode());
-  EXPECT_EQ('m', inputM.getMode());
-}
 
 TEST_F(InputTest, Precision) {
   mpf_class expected_precision {10.0};

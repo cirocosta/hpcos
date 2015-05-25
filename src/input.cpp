@@ -3,16 +3,14 @@
 namespace hpcos {
 
 Input::Input(const int& argc, const char** argv)
-  : m_debug(false)
 {
   m_precision.set_prec(100000);
   m_x.set_prec(100000);
   parse(argc, argv);
 }
 
-Input::Input() : m_debug(false)
-{
-}
+Input::Input()
+{ }
 
 void Input::parse_input(const int& argc, const char** argv)
 {
@@ -31,11 +29,9 @@ void Input::print_usage()
        << "t:\tNumber of threads to be used if 0, uses" << endl
        << "\t t = number of cores." << endl
        << endl
-       << "f|m:\t Method for checking the precision." << endl
+       << "sv:\t Accepted error for a thread in an iteration" << endl
        << endl
-       << "p:\t Precision" << endl
-       << endl
-       << "x:\t value to be calculated" << endl
+       << "x:\t value to be calculated (radians)" << endl
        << endl
        << "d:\t debug mode (optional" << endl
        << endl;
@@ -88,7 +84,7 @@ mpf_class Input::parse_mpf(const char* number)
 
 void Input::parse(const int &argc, const char** argv)
 {
-  if (argc < 5) {
+  if (argc < 4) {
     print_usage();
     std::cerr << "Minimum number of arguments not provided."
               << std::endl;
@@ -109,30 +105,15 @@ void Input::parse(const int &argc, const char** argv)
     m_threads = concurrentThreads;
   }
 
-  // mode
-  if (*argv[2] == 'f')
-    m_mode = 'f';
-  else if (*argv[2] == 'm')
-    m_mode = 'm';
-  else {
-    print_usage();
-    cerr << "Not a valid mode. Must be 'f' or 'm'" << endl;
-    std::exit(1);
-  }
-
   // precision
-  int prec = parse_int(argv[3]);
+  int prec = parse_int(argv[2]);
   mpf_class ten (10);
 
   mpf_pow_ui(m_precision.get_mpf_t(), ten.get_mpf_t(), prec);
   m_precision  = 1/m_precision;
 
   // x
-  m_x = parse_mpf(argv[4]);
-
-  // debug
-  if (argc > 5 && *argv[5] == 'd')
-    m_debug = true;
+  m_x = parse_mpf(argv[3]);
 }
 
 } // ns

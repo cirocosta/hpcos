@@ -32,10 +32,6 @@ namespace hpcos {
 
     inline bool shouldDie() { return m_kill; }
     inline void sync() { m_barrier->wait(); }
-    inline void syncf()
-    {
-
-    }
 
     inline void lock_result() { m_result_mutex.lock(); }
     inline void unlock_result() { m_result_mutex.unlock(); }
@@ -43,8 +39,8 @@ namespace hpcos {
 
     std::string calculate(const Input& input);
   private:
-    static void compute_m(unsigned i, unsigned n, Calculator& calc);
-    static void compute_f(unsigned i, unsigned n, Calculator& calc);
+    static void calcm(unsigned id, unsigned n, char oi, Calculator& calc,
+                      const mpf_class& x, const mpf_class& prec);
   };
 
 } // ns

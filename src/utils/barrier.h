@@ -3,8 +3,6 @@
 
 #include <mutex>
 #include "semaphore.h"
-//TODO remove this
-#include <cstdio>
 
 namespace hpcos { namespace utils {
 
@@ -18,7 +16,6 @@ namespace hpcos { namespace utils {
     std::mutex m_mutex;
   public:
     Barrier(const unsigned int n = 0);
-
     ~Barrier();
 
     void setNumberOfThreads(const unsigned int n);
