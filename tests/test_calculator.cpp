@@ -1,8 +1,13 @@
-#include <iostream>
-#include "gtest/gtest.h"
 #include "input.h"
 #include "calculator.h"
+
+#include "gtest/gtest.h"
+#include <gmp.h>
+#include <gmpxx.h>
+
 #include <string>
+#include <iostream>
+
 
 class CalcTest : public ::testing::Test
 {
@@ -12,9 +17,10 @@ protected:
 protected:
   CalcTest()
   {
+    mpf_set_default_prec(10000);
     const int argc = 5;
     const char* argv0[] = {
-      "./src/main", "4", "f", "10", "1",
+      "./src/main", "1", "f", "10", "1",
     };
     const char* argv1[] = {
       "./src/main", "4", "f", "110", "3.1415926553308963775634765625",
@@ -29,11 +35,16 @@ protected:
 	virtual void TearDown() { }
 };
 
-TEST_F(CalcTest, LowPrecision) {
+TEST_F(CalcTest, Initialization) {
+  mpf_class expected {0.0};
 
-  /* std::string cos1_10 {"0.5403023059"}; */
-
-  /* EXPECT_EQ(calc.calculate(inp0), cos1_10); */
-  EXPECT_EQ(1, 1);
+  EXPECT_EQ(calc.p_result, expected);
 }
+
+TEST_F(CalcTest, LowPrecision) {
+  std::string cos1_10 {"0.5403023059"};
+
+  EXPECT_EQ(calc.calculate(inp0), cos1_10);
+}
+
 
