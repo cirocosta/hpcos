@@ -6,10 +6,10 @@ ADD_EXECUTABLE(main main.cpp)
 ADD_SUBDIRECTORY(utils/)
 
 TARGET_LINK_LIBRARIES(main
-    ${CMAKE_THREAD_LIBS_INIT}
-    ${GMPXX_LIBRARIES}
-    ${GMP_LIBRARIES}
-    utils
-    calculator
-    input
+  ${CMAKE_THREAD_LIBS_INIT}
+  ${GMPXX_LIBRARIES}
+  ${GMP_LIBRARIES}
+  utils
+  calculator
+  input
 )

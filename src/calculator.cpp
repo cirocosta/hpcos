@@ -108,7 +108,6 @@ namespace hpcos {
 
     while (!calc.shouldDie())
     {
-      // TODO cache last calculus
       fact2n = 1.0;
       for (k = 1; k <= 2*i; k++)
         fact2n *= k;
