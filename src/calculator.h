@@ -48,4 +48,5 @@ namespace hpcos {
 } // ns
 
 
-#endif /* CALCULATOR_H */
+#endif
+

@@ -88,9 +88,6 @@ mpf_class Input::parse_mpf(const char* number)
 
 void Input::parse(const int &argc, const char** argv)
 {
-  print_usage();
-  cout << argv << endl;
-
   if (argc < 5) {
     print_usage();
     std::cerr << "Minimum number of arguments not provided."

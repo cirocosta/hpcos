@@ -1,6 +1,7 @@
 #include "calculator.h"
 
 namespace hpcos {
+
   void Calculator::calculate(const Input& input)
   {
     m_barrier->setNumberOfThreads(input.getThreads());

@@ -1,6 +1,10 @@
-#include <iostream>
 #include "gtest/gtest.h"
 #include "input.h"
+
+#include <gmp.h>
+#include <gmpxx.h>
+#include <iostream>
+
 
 class InputTest : public ::testing::Test
 {
@@ -17,16 +21,16 @@ protected:
       "./src/main",
       "4",
       "f",
-      "10",
-      "1",
+      "110",
+      "3.1415926553308963775634765625",
     };
 
     const char* cliM[] = {
       "./src/main",
       "4",
       "m",
-      "10",
-      "1",
+      "110",
+      "3.1415926553308963775634765625",
     };
 
     inputF = hpcos::Input{argcF, cliF};
@@ -39,8 +43,30 @@ protected:
 };
 
 
-TEST_F(InputTest, Initialization) {
-    EXPECT_EQ(4, inputF.getThreads());
-    EXPECT_EQ(4, inputM.getThreads());
+TEST_F(InputTest, Threads) {
+  EXPECT_EQ(4, inputF.getThreads());
+  EXPECT_EQ(4, inputM.getThreads());
+}
+
+TEST_F(InputTest, Mode) {
+  EXPECT_EQ('f', inputF.getMode());
+  EXPECT_EQ('m', inputM.getMode());
+}
+
+TEST_F(InputTest, Precision) {
+  mpf_class expected_precision {10.0};
+  mpf_pow_ui(expected_precision.get_mpf_t(),
+             expected_precision.get_mpf_t(), 110);
+  expected_precision = 1.0 / expected_precision;
+
+  EXPECT_TRUE(mpf_cmp(expected_precision.get_mpf_t(),
+              inputF.getPrecision().get_mpf_t()));
+  EXPECT_TRUE(mpf_cmp(expected_precision.get_mpf_t(),
+              inputM.getPrecision().get_mpf_t()));
+}
+
+TEST_F(InputTest, X) {
+  mpf_class expected_x {"3.1415926553308963775634765625"};
+  EXPECT_EQ(expected_x, inputF.getX());
 }
 
