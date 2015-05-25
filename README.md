@@ -1,6 +1,4 @@
-# hpcos
-
-> high precision and fast cosine calculator
+# hpcos - EP2 Mac0328
 
 Taking advantage of pthreads (for concurrency) and GMP (for precision) this lib aims to provide a high speed and very precise calculation of `cos(x)`.
 
@@ -42,6 +40,7 @@ Basic:
 $ mkdir build && cd build
 $ cmake ..
 $ make
+$ ./src/main (args)
 ```
 
 Tests included:
@@ -51,6 +50,7 @@ $ mkdir build && cd build
 $ cmake -Dtest=ON ..
 $ make
 $ make test
+$ ./src/main (args)
 ```
 
 ps.: If you wish to debug and etc i recommend switching to clang++ when compiling. To do so:
@@ -63,36 +63,6 @@ before running `cmake -Dtest=ON ..`.
 
 For debug builds don't forge to add `-DCMAKE_BUILD_TYPE=Debug`.
 Realease builds with `DCMAKE_BUILD_TYPE=Release`.
-
-
-### Comparison and verifying if right
-
-Firstly it relies on calculating a result for a lower precision and then seeing if it is contained in a solution for a higher precision.
-
-After that, cross-comparison with [mpmath library](http://mpmath.org/) for Python (you can check the test cases inside `tests/`).
-
-### Times
-
-//TODO
-
-Hardware:
-- machine 1
-  - Intel® Core™ i5-460M Processor (3M Cache, 2.53 GHz, 2 cores) 1st gen
-  - 3072 GB Ram
-  - HDD
-
-- machine 2
-  - Intel® Core™ i5-4210U Processor (3M Cache, 1.7 Ghz, 2 cores) 4th gen
-  - 8192 GB Ram
-  - SSD
-
-## Hacking
-
-The folder structure ir pretty clear, but in case you're not familiar:
-
-`lib/`: included libraries. Here is where GTest code lives, e.g.
-`src/`: contains source files
-`tests/`: tests for the source files
 
 ## LICENSE
 
