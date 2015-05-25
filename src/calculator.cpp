@@ -22,46 +22,40 @@ namespace hpcos {
                   std::mem_fn(&std::thread::join));
   }
 
-  void Calculator::compute_f(const unsigned id, const unsigned n,
-                             Calculator& calc)
+  void calcf(unsigned id, unsigned n, char oi, Calculator& calc,
+             const mpf_class& x)
   {
-    char is_odd = (id+1) % 2 ? 1 : 0;
-    unsigned i = id;
-    unsigned iterations = 10;
+    char is_odd = id % 2;
+    unsigned i = n;
+    int iterations = 10;
+    mpf_class fact2n {1.0};
+    mpf_class lres {0.0};
 
-    while (iterations--){
-      std::cout << "T_" << id << ": " << i << std::endl;
-      calc.sync();
-      i += n;
+    while (iterations--)
+    {
+     for (unsigned k = 2; k <= 2*i; k++)
+       fact2n *= k;
+
+     mpf_pow_ui(lres.get_mpf_t(), x.get_mpf_t(), 2*i);
+     lres /= fact2n;
+
+     if (is_odd) {
+       calc.lock_result();
+       calc.p_result += lres;
+       calc.unlock_result();
+     } else {
+       calc.lock_result();
+       calc.p_result += lres;
+       calc.unlock_result();
+     }
+
+     calc.sync();
+
+     i += n;
+     if (oi)
+       i ^= 0x1;
     }
   }
 
-  void Calculator::compute_m(unsigned i, unsigned n, Calculator& calc)
-  {
-    std::cout << "TODO!" << std::endl;
-  }
 } // ns
 
-
-
-/* void compute(mpf_t result, int n, mpf_t x) */
-/* { */
-/*   mpf_t fact2n, lres; */
-
-/*   mpf_init_set_ui(fact2n, 1); */
-/*   mpf_init_set_ui(lres, 0); */
-
-/*   for (int i = 2; i <= 2*n; i++) */
-/*     mpf_mul_ui(fact2n, fact2n, i); */
-
-/*   mpf_pow_ui(lres, x, 2*n); */
-/*   mpf_div(lres, lres, fact2n); */
-
-/*   if (n%2) */
-/*     mpf_sub(result, result, lres); */
-/*   else */
-/*     mpf_add(result, result, lres); */
-
-/*   mpf_clear(lres); */
-/*   mpf_clear(fact2n); */
-/* } */

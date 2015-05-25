@@ -16,14 +16,16 @@ namespace hpcos {
 
   class Calculator {
   private:
-    mpf_class m_result;
     std::vector<std::thread> m_threads;
     hpcos::utils::Barrier* m_barrier;
     bool m_kill;
     std::mutex m_result_mutex;
   public:
+    mpf_class p_result;
+  public:
     Calculator() :
-      m_barrier(new utils::Barrier()), m_kill(false)
+      m_result(mpf_class {0.0}), m_barrier(new utils::Barrier()),
+      m_kill(false)
     {}
 
     ~Calculator()
@@ -31,13 +33,10 @@ namespace hpcos {
       delete m_barrier;
     }
 
-    // TODO syncF, syncM
-    inline void sync()
-    {
-      m_barrier->wait();
-    }
-
     inline bool shouldDie() { return m_kill; }
+    inline void sync() { m_barrier->wait(); }
+    inline void lock_result() { m_result_mutex.lock(); }
+    inline void unlock_result() { m_result_mutex.unlock(); }
 
     void calculate(const Input& input);
   private:
