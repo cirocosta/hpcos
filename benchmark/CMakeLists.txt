@@ -5,6 +5,6 @@ TARGET_LINK_LIBRARIES(benchmark
   ${GMPXX_LIBRARIES}
   ${GMP_LIBRARIES}
   utils
-  calculator
   input
+  calculator
 )

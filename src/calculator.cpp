@@ -1,5 +1,4 @@
 #include "calculator.h"
-#include <iomanip>
 
 namespace hpcos {
 

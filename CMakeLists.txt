@@ -50,3 +50,4 @@ IF (test)
     # Our test source
     ADD_SUBDIRECTORY(tests/)
 ENDIF (test)
+

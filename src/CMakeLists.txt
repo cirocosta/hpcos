@@ -7,8 +7,8 @@ ADD_SUBDIRECTORY(utils/)
 
 TARGET_LINK_LIBRARIES(main
   ${CMAKE_THREAD_LIBS_INIT}
-  ${GMPXX_LIBRARIES}
   ${GMP_LIBRARIES}
+  ${GMPXX_LIBRARIES}
   utils
   calculator
   input
