@@ -42,7 +42,7 @@ TEST_F(CalcTest, Initialization) {
 }
 
 TEST_F(CalcTest, LowPrecision) {
-  std::string cos1_10 {"0.5403023059"};
+  std::string cos1_10 {"0.5403023058681397174009366074429766037323104206179222276700972553811003947744717645179518560871830893"};
 
   EXPECT_EQ(calc.calculate(inp0), cos1_10);
 }

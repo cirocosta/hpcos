@@ -28,7 +28,7 @@ d:      Debug mode (optional).
 
 ### `f` mode
 
-> stops when the absolute difference between two consecutive values is less than a precision `p` specified.
+> stops when the absolute difference between two consecutive values is less than a precision `p` specified, that is, when the sum of all of the contributions is less than the specified.
 
 ### `m` mode
 
